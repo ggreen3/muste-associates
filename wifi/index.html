@@ -163,24 +163,34 @@
         .qr-coverage {
             background: #e8f0fe;
             border-radius: 16px;
-            padding: 24px;
-            margin: 30px 0;
+            padding: 30px;
+            margin: 30px auto;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 30px;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1000px;
         }
         .qr-coverage img {
             max-width: 200px;
+            width: 100%;
+            height: auto;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
+        .qr-coverage div {
+            flex: 1;
+            min-width: 250px;
+        }
         .qr-coverage h3 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin-bottom: 10px;
+            color: var(--primary);
         }
         .qr-coverage p {
             color: var(--text-secondary);
+            margin-bottom: 10px;
         }
         /* ========== GRACE PERIOD NOTE ========== */
         .grace-note {
@@ -592,6 +602,7 @@
             padding: 48px 0;
             text-align: center;
             color: var(--text-secondary);
+            margin-top: 0;
         }
         /* ========== CHAT WIDGET ========== */
         .chat-widget {
@@ -745,6 +756,10 @@
             .qr-coverage {
                 flex-direction: column;
                 text-align: center;
+                padding: 20px;
+            }
+            .qr-coverage img {
+                margin: 0 auto;
             }
         }
         /* ========== PWA INSTALL PROMO ========== */
@@ -818,8 +833,8 @@
             </div>
         </section>
 
-        <!-- QR Code & Coverage Note -->
-        <div class="container">
+        <!-- QR Code & Coverage Note (centered) -->
+        <div class="container" style="display: flex; justify-content: center;">
             <div class="qr-coverage">
                 <img src="/wifi/musteeassociatespremiumcheapwifi.png" alt="Scan to connect to MusteeAssociatesPremiumCheapWiFi">
                 <div>
@@ -876,7 +891,7 @@
             </div>
         </div>
 
-        <!-- Support section for delays/issues -->
+        <!-- Support section for delays/issues (updated email) -->
         <div class="container">
             <div class="support-section">
                 <h3>📞 Need help or experienced a delay?</h3>
@@ -947,7 +962,7 @@
 
     <footer id="contact">
         <div class="container">
-            <p>📍 Parklands, Nairobi &nbsp; | &nbsp; 📞 0746 779950 &nbsp; | &nbsp; ✉️ musteeassociatespremiumcheapwifi@gmail.com</p>
+            <p>📍 Parklands, Nairobi &nbsp; | &nbsp; 📞 0746 779950 &nbsp; | &nbsp; ✉️ musteeassociateswifi@gmail.com</p>
             <p style="margin-top: 1rem;">&copy; 2026 Mustee Associates premium cheap wifi. All rights reserved.</p>
         </div>
     </footer>
@@ -1182,7 +1197,7 @@
             }
         });
 
-        // ========== SUPPORT BUTTON (mailto) ==========
+        // ========== SUPPORT BUTTON (mailto) with updated email ==========
         document.getElementById('supportBtn').addEventListener('click', () => {
             const phone = document.getElementById('supportPhone').value.trim();
             const duration = document.getElementById('supportDuration').value.trim();
@@ -1191,7 +1206,7 @@
             const body = encodeURIComponent(
                 `Phone: ${phone}\nDuration of delay: ${duration}\n\nDetails:\n${message}\n\n(Please attach payment proof if any.)`
             );
-            window.location.href = `mailto:musteeassociatespremiumcheapwifi@gmail.com?subject=${subject}&body=${body}`;
+            window.location.href = `mailto:musteeassociateswifi@gmail.com?subject=${subject}&body=${body}`;
         });
 
         // ========== INSTALL INSTRUCTION ==========
@@ -1221,7 +1236,7 @@
             deferredPrompt = null;
         });
 
-        // ========== CHATBOT (adapted from Serena) ==========
+        // ========== CHATBOT ==========
         const chatButton = document.getElementById('chatButton');
         const chatPanel = document.getElementById('chatPanel');
         const closeChatBtn = document.getElementById('closeChatBtn');
@@ -1231,7 +1246,7 @@
 
         let receiving = false;
         const chatId = crypto.randomUUID();
-        const systemPrompt = `You are a helpful assistant for Mustee Associates WiFi. Answer questions about our WiFi passes, pricing (30min=5, 1h=8, 2h=14, 3h=20, 4h=26, 6h=38, 8h=48, 10h=58, 12h=68, 24h=28, weekend=120, weekly=135, biweekly=250, monthly=409, 2month=780, 3month=1150, student weekly=100, family monthly=900, free passes), how to connect, troubleshooting, coverage, etc. Be friendly and concise. If you don't know, suggest contacting support at musteeassociatespremiumcheapwifi@gmail.com.`;
+        const systemPrompt = `You are a helpful assistant for Mustee Associates WiFi. Answer questions about our WiFi passes, pricing, pricing is in kes (30min=5, 1h=8, 2h=14, 3h=20, 4h=26, 6h=38, 8h=48, 10h=58, 12h=68, 24h=28, weekend=120, weekly=135, biweekly=250, monthly=409, 2month=780, 3month=1150, student weekly=100, family monthly=900, free passes), how to connect, troubleshooting, coverage, etc. Be friendly and concise. If you don't know, suggest contacting support at musteeassociateswifi@gmail.com.`;
 
         chatButton.addEventListener('click', () => {
             chatPanel.classList.toggle('open');
