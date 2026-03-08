@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,6 +40,7 @@
             color: var(--text);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
         .container {
             max-width: 1280px;
@@ -561,6 +561,122 @@
             text-align: center;
             color: var(--text-secondary);
         }
+        /* ========== CHAT WIDGET ========== */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            font-family: 'Inter', sans-serif;
+        }
+        .chat-button {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+        .chat-button:hover {
+            transform: scale(1.1);
+        }
+        .chat-panel {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            max-width: 85vw;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .chat-panel.open {
+            display: flex;
+        }
+        .chat-header-panel {
+            background: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-header-panel h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .chat-header-panel button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 15px;
+            background: #f5f7fa;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .message {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            word-wrap: break-word;
+        }
+        .message.bot {
+            align-self: flex-start;
+            background: white;
+            border: 1px solid var(--border);
+        }
+        .message.user {
+            align-self: flex-end;
+            background: var(--primary);
+            color: white;
+        }
+        .chat-input-area {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid var(--border);
+            background: white;
+        }
+        .chat-input-area input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            outline: none;
+            font-size: 0.95rem;
+        }
+        .chat-input-area button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-left: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        .chat-input-area button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
         /* ========== RESPONSIVE ========== */
         @media (max-width: 768px) {
             header .container {
@@ -594,8 +710,11 @@
                 flex-direction: column;
                 text-align: center;
             }
+            .chat-panel {
+                width: 300px;
+            }
         }
-        /* ========== PWA INSTALL PROMO (hidden by default, shown via JS) ========== */
+        /* ========== PWA INSTALL PROMO ========== */
         .install-prompt {
             display: none;
             background: var(--primary);
@@ -720,7 +839,7 @@
             </div>
         </div>
 
-        <!-- How it works (updated messaging) -->
+        <!-- How it works -->
         <section id="guide" class="guide-section">
             <div class="container">
                 <h2 class="section-title text-center">How it works</h2>
@@ -781,23 +900,43 @@
         </div>
     </footer>
 
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <div class="chat-button" id="chatButton">
+            <i class="fas fa-comment"></i>
+        </div>
+        <div class="chat-panel" id="chatPanel">
+            <div class="chat-header-panel">
+                <h3><i class="fas fa-robot"></i> WiFi Assistant</h3>
+                <button id="closeChatBtn">&times;</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <!-- messages appear here -->
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Ask about passes, connection, etc.">
+                <button id="chatSendBtn" disabled><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // ========== PRODUCT DATA (replace checkoutId with your actual HustleSasa IDs) ==========
+        // ========== PRODUCT DATA (UPDATED PRICING) ==========
         const products = [
             { id: '30min', name: '30 Minute Pass', desc: 'Quick email, WhatsApp, or search.', price: 5, checkoutId: 'WEY7ERYJ', duration: 0.5, category: 'hourly' },
             { id: '1h', name: '1 Hour Pass', desc: 'Light browsing, social media.', price: 8, checkoutId: '1HOUR_ID', duration: 1, category: 'hourly' },
-            { id: '2h', name: '2 Hour Pass', desc: 'Study or research session.', price: 12, checkoutId: '2HOUR_ID', duration: 2, category: 'hourly' },
-            { id: '3h', name: '3 Hour Pass', desc: 'Watch a movie or work shift.', price: 16, checkoutId: '3HOUR_ID', duration: 3, category: 'hourly' },
-            { id: '4h', name: '4 Hour Pass', desc: 'Half work day.', price: 20, checkoutId: '4HOUR_ID', duration: 4, category: 'hourly' },
-            { id: '6h', name: '6 Hour Pass', desc: 'Full work shift.', price: 28, checkoutId: '6HOUR_ID', duration: 6, category: 'hourly' },
-            { id: '8h', name: '8 Hour Pass', desc: 'Work day + evening.', price: 35, checkoutId: '8HOUR_ID', duration: 8, category: 'hourly' },
-            { id: '10h', name: '10 Hour Pass', desc: 'Heavy usage day.', price: 41, checkoutId: '10HOUR_ID', duration: 10, category: 'hourly' },
-            { id: '12h', name: '12 Hour Pass', desc: 'Full day + night.', price: 45, checkoutId: '12HOUR_ID', duration: 12, category: 'hourly' },
-            { id: '24h', name: '24 Hour Pass', desc: 'Complete day coverage.', price: 50, checkoutId: '24HOUR_ID', duration: 24, category: 'daily' },
-            { id: 'weekend', name: 'Weekend Special', desc: 'Fri 6pm – Mon 6am.', price: 41, checkoutId: 'WEEKEND_ID', duration: 60, category: 'daily' },
-            { id: 'weekly', name: 'Weekly Pass', desc: '7 full days.', price: 123, checkoutId: 'WEEKLY_ID', duration: 168, category: 'weekly' },
-            { id: 'biweekly', name: 'Bi-Weekly Pass', desc: '14 days.', price: 225, checkoutId: 'BIWEEKLY_ID', duration: 336, category: 'weekly' },
-            { id: 'monthly', name: 'Monthly Pass', desc: '30 days.', price: 410, checkoutId: 'MONTHLY_ID', duration: 720, category: 'monthly' },
+            { id: '2h', name: '2 Hour Pass', desc: 'Study or research session.', price: 14, checkoutId: '2HOUR_ID', duration: 2, category: 'hourly' },
+            { id: '3h', name: '3 Hour Pass', desc: 'Watch a movie or work shift.', price: 20, checkoutId: '3HOUR_ID', duration: 3, category: 'hourly' },
+            { id: '4h', name: '4 Hour Pass', desc: 'Half work day.', price: 26, checkoutId: '4HOUR_ID', duration: 4, category: 'hourly' },
+            { id: '6h', name: '6 Hour Pass', desc: 'Full work shift.', price: 38, checkoutId: '6HOUR_ID', duration: 6, category: 'hourly' },
+            { id: '8h', name: '8 Hour Pass', desc: 'Work day + evening.', price: 48, checkoutId: '8HOUR_ID', duration: 8, category: 'hourly' },
+            { id: '10h', name: '10 Hour Pass', desc: 'Heavy usage day.', price: 58, checkoutId: '10HOUR_ID', duration: 10, category: 'hourly' },
+            { id: '12h', name: '12 Hour Pass', desc: 'Full day + night.', price: 68, checkoutId: '12HOUR_ID', duration: 12, category: 'hourly' },
+            { id: '24h', name: '24 Hour Pass', desc: 'Complete day coverage.', price: 28, checkoutId: '24HOUR_ID', duration: 24, category: 'daily' },
+            { id: 'weekend', name: 'Weekend Special', desc: 'Fri 6pm – Mon 6am.', price: 120, checkoutId: 'WEEKEND_ID', duration: 60, category: 'daily' },
+            { id: 'weekly', name: 'Weekly Pass', desc: '7 full days.', price: 135, checkoutId: 'WEEKLY_ID', duration: 168, category: 'weekly' },
+            { id: 'biweekly', name: 'Bi-Weekly Pass', desc: '14 days.', price: 250, checkoutId: 'BIWEEKLY_ID', duration: 336, category: 'weekly' },
+            { id: 'monthly', name: 'Monthly Pass', desc: '30 days.', price: 409, checkoutId: 'MONTHLY_ID', duration: 720, category: 'monthly' },
             { id: '2month', name: '2 Month Pass', desc: '60 days.', price: 780, checkoutId: '2MONTH_ID', duration: 1440, category: 'monthly' },
             { id: '3month', name: '3 Month Pass', desc: '90 days.', price: 1150, checkoutId: '3MONTH_ID', duration: 2160, category: 'monthly' },
             { id: 'midnight', name: 'Midnight Hour', desc: 'Free 12am–1am (no payment).', price: 0, checkoutId: 'FREE', duration: 1, category: 'free' },
@@ -806,19 +945,15 @@
             { id: 'family', name: 'Family Monthly', desc: 'Up to 3 devices.', price: 900, checkoutId: 'FAMILY_ID', duration: 720, category: 'monthly' }
         ];
 
-        // ========== GLOBAL VISITOR COUNTER (using CountAPI) ==========
+        // ========== GLOBAL VISITOR COUNTER ==========
         const userSpan = document.getElementById('userCount');
-        // Start with 37, then fetch global count from CountAPI
         fetch('https://api.countapi.xyz/hit/mustee-wifi/visitors')
             .then(res => res.json())
             .then(data => {
-                // data.value is the total number of hits (unique per IP? Actually it's per hit)
-                // We'll add 37 to make it look like 37+real hits
                 let count = data.value + 37;
                 userSpan.textContent = count;
             })
             .catch(() => {
-                // Fallback to localStorage if API fails
                 let localCount = localStorage.getItem('visitorCount');
                 if (!localCount) {
                     localCount = 37;
@@ -829,7 +964,7 @@
                 userSpan.textContent = localCount;
             });
 
-        // ========== RENDER PRODUCTS with filters ==========
+        // ========== RENDER PRODUCTS ==========
         const productGrid = document.getElementById('productGrid');
         let currentFilter = 'all';
         let searchTerm = '';
@@ -837,7 +972,6 @@
         function filterProducts() {
             let filtered = products;
 
-            // Apply search
             if (searchTerm) {
                 filtered = filtered.filter(p => 
                     p.name.toLowerCase().includes(searchTerm) || 
@@ -846,7 +980,6 @@
                 );
             }
 
-            // Apply category filter
             if (currentFilter !== 'all') {
                 if (currentFilter === 'under50') filtered = filtered.filter(p => p.price > 0 && p.price < 50);
                 else if (currentFilter === '50to200') filtered = filtered.filter(p => p.price >= 50 && p.price <= 200);
@@ -884,12 +1017,9 @@
                 productGrid.appendChild(card);
             });
 
-            // Reattach event listeners
             document.querySelectorAll('.add-to-cart').forEach(btn => btn.addEventListener('click', addToCart));
             document.querySelectorAll('.buy-now').forEach(btn => btn.addEventListener('click', buyNow));
         }
-
-        // Initial render
         renderProducts(products);
 
         // ========== SEARCH ==========
@@ -963,7 +1093,6 @@
             }, 800);
         }
 
-        // Buy now: open popup
         function buyNow(e) {
             const id = e.target.closest('button').dataset.id;
             const product = products.find(p => p.id === id);
@@ -980,7 +1109,6 @@
             window.open(url, 'HustleSasa', `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes`);
         }
 
-        // Cart sidebar
         cartIcon.addEventListener('click', () => {
             cartSidebar.classList.add('open');
             updateCartUI();
@@ -996,7 +1124,6 @@
             });
         });
 
-        // Close sidebar on outside click
         document.addEventListener('click', (e) => {
             if (!cartSidebar.contains(e.target) && !cartIcon.contains(e.target) && cartSidebar.classList.contains('open')) {
                 cartSidebar.classList.remove('open');
@@ -1042,9 +1169,100 @@
             deferredPrompt = null;
         });
 
-        // ========== SERVICE WORKER (basic for PWA) ==========
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed', err));
+        // ========== CHATBOT (adapted from Serena) ==========
+        const chatButton = document.getElementById('chatButton');
+        const chatPanel = document.getElementById('chatPanel');
+        const closeChatBtn = document.getElementById('closeChatBtn');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const chatSendBtn = document.getElementById('chatSendBtn');
+
+        let receiving = false;
+        const chatId = crypto.randomUUID();
+        const systemPrompt = `You are a helpful assistant for Mustee Associates WiFi. Answer questions about our WiFi passes, pricing (30min=5, 1h=8, 2h=14, 3h=20, 4h=26, 6h=38, 8h=48, 10h=58, 12h=68, 24h=28, weekend=120, weekly=135, biweekly=250, monthly=409, 2month=780, 3month=1150, student weekly=100, family monthly=900, free passes), how to connect, troubleshooting, coverage, etc. Be friendly and concise. If you don't know, suggest contacting support at musteeassociatespremiumcheapwifi@gmail.com.`;
+
+        chatButton.addEventListener('click', () => {
+            chatPanel.classList.toggle('open');
+            if (chatPanel.classList.contains('open') && chatMessages.children.length === 0) {
+                // Add initial bot message
+                addMessage('bot', 'Hello! I\'m your WiFi assistant. How can I help you today?');
+            }
+        });
+
+        closeChatBtn.addEventListener('click', () => {
+            chatPanel.classList.remove('open');
+        });
+
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !receiving && chatInput.value.trim() !== '') {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        chatInput.addEventListener('input', () => {
+            chatSendBtn.disabled = receiving || chatInput.value.trim() === '';
+        });
+
+        chatSendBtn.addEventListener('click', sendMessage);
+
+        function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text || receiving) return;
+            chatInput.value = '';
+            chatSendBtn.disabled = true;
+
+            // Add user message
+            addMessage('user', text);
+
+            // Connect to WebSocket
+            receiving = true;
+            const url = "wss://backend.buildpicoapps.com/api/chatbot/chat";
+            const websocket = new WebSocket(url);
+
+            websocket.addEventListener("open", () => {
+                websocket.send(
+                    JSON.stringify({
+                        chatId: chatId,
+                        appId: "after-consumer",
+                        systemPrompt: systemPrompt,
+                        message: text,
+                    })
+                );
+            });
+
+            // Create a placeholder bot message
+            const botMsgElement = document.createElement('div');
+            botMsgElement.className = 'message bot';
+            botMsgElement.textContent = '';
+            chatMessages.appendChild(botMsgElement);
+
+            websocket.onmessage = (event) => {
+                botMsgElement.textContent += event.data;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            };
+
+            websocket.onclose = (event) => {
+                receiving = false;
+                chatSendBtn.disabled = chatInput.value.trim() === '';
+                if (event.code !== 1000) {
+                    botMsgElement.textContent += " Unable to connect. Please try again.";
+                }
+            };
+
+            websocket.onerror = () => {
+                receiving = false;
+                chatSendBtn.disabled = chatInput.value.trim() === '';
+                botMsgElement.textContent = "Connection error. Please try again.";
+            };
+        }
+
+        function addMessage(sender, text) {
+            const msg = document.createElement('div');
+            msg.className = `message ${sender}`;
+            msg.textContent = text;
+            chatMessages.appendChild(msg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
         // ========== MANIFEST (inline) ==========
@@ -1064,7 +1282,12 @@
         const blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
         const url = URL.createObjectURL(blob);
         document.querySelector('link[rel="manifest"]').setAttribute('href', url);
+
+        // ========== SERVICE WORKER ==========
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed', err));
+        }
     </script>
-    <!-- Simple service worker (create sw.js separately) -->
+    <!-- Minimal service worker (create sw.js separately) -->
 </body>
 </html>
