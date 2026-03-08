@@ -159,6 +159,38 @@
         .live-counter:hover {
             background: rgba(0,102,204,0.15);
         }
+        /* ========== QR & COVERAGE SECTION ========== */
+        .qr-coverage {
+            background: #e8f0fe;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 30px 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 30px;
+        }
+        .qr-coverage img {
+            max-width: 200px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .qr-coverage h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+        .qr-coverage p {
+            color: var(--text-secondary);
+        }
+        /* ========== GRACE PERIOD NOTE ========== */
+        .grace-note {
+            background: #fef8e7;
+            border: 1px solid #f5e2b5;
+            border-radius: 12px;
+            padding: 16px 24px;
+            margin: 30px 0;
+            color: #8a6e3b;
+        }
         /* ========== FILTERS & SEARCH ========== */
         .filter-section {
             padding: 40px 0 20px;
@@ -710,8 +742,9 @@
                 flex-direction: column;
                 text-align: center;
             }
-            .chat-panel {
-                width: 300px;
+            .qr-coverage {
+                flex-direction: column;
+                text-align: center;
             }
         }
         /* ========== PWA INSTALL PROMO ========== */
@@ -785,6 +818,25 @@
             </div>
         </section>
 
+        <!-- QR Code & Coverage Note -->
+        <div class="container">
+            <div class="qr-coverage">
+                <img src="/wifi/musteeassociatespremiumcheapwifi.png" alt="Scan to connect to MusteeAssociatesPremiumCheapWiFi">
+                <div>
+                    <h3>📶 Check coverage first</h3>
+                    <p>Our network is newly established. For the best experience, scan the QR code above to connect and test signal strength before purchasing. If the signal is weak, try moving closer to the hotspot location.</p>
+                    <p><strong>You don't need to be connected to WiFi to pay</strong> – you can pay using your mobile data. After payment, you'll receive a unique code via SMS. Then connect to the hotspot and enter the code on the login page.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grace Period Note -->
+        <div class="container">
+            <div class="grace-note">
+                <p><strong>⏳ 10‑minute grace period</strong> – After your pass expires, you'll have an extra 10 minutes to renew without losing connection. Just buy a new pass and enter the new code before the grace period ends.</p>
+            </div>
+        </div>
+
         <!-- Search & Filters -->
         <section class="filter-section">
             <div class="container">
@@ -852,17 +904,17 @@
                     <div class="step">
                         <div class="step-icon"><i class="fas fa-mobile-alt"></i></div>
                         <h3>2. Pay via M‑Pesa</h3>
-                        <p>A payment prompt appears on your phone – just enter your PIN.</p>
+                        <p>A payment prompt appears on your phone – just enter your PIN. (You can use mobile data.)</p>
                     </div>
                     <div class="step">
                         <div class="step-icon"><i class="fas fa-check-circle"></i></div>
-                        <h3>3. Instant connection</h3>
-                        <p>You're automatically online. No extra steps needed.</p>
+                        <h3>3. Receive code</h3>
+                        <p>You'll get a unique voucher code via SMS within 1 minute.</p>
                     </div>
                     <div class="step">
-                        <div class="step-icon"><i class="fas fa-clock"></i></div>
-                        <h3>4. Reminder before expiry</h3>
-                        <p>We'll notify you when your time is almost up.</p>
+                        <div class="step-icon"><i class="fas fa-key"></i></div>
+                        <h3>4. Enter code</h3>
+                        <p>Connect to the hotspot, open a browser, and enter the code on the login page. You're online!</p>
                     </div>
                 </div>
             </div>
@@ -1184,7 +1236,6 @@
         chatButton.addEventListener('click', () => {
             chatPanel.classList.toggle('open');
             if (chatPanel.classList.contains('open') && chatMessages.children.length === 0) {
-                // Add initial bot message
                 addMessage('bot', 'Hello! I\'m your WiFi assistant. How can I help you today?');
             }
         });
@@ -1212,10 +1263,8 @@
             chatInput.value = '';
             chatSendBtn.disabled = true;
 
-            // Add user message
             addMessage('user', text);
 
-            // Connect to WebSocket
             receiving = true;
             const url = "wss://backend.buildpicoapps.com/api/chatbot/chat";
             const websocket = new WebSocket(url);
@@ -1231,7 +1280,6 @@
                 );
             });
 
-            // Create a placeholder bot message
             const botMsgElement = document.createElement('div');
             botMsgElement.className = 'message bot';
             botMsgElement.textContent = '';
