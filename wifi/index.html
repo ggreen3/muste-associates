@@ -581,20 +581,7 @@
             margin-bottom: 16px;
             text-align: right;
         }
-        .cart-checkout {
-            width: 100%;
-            padding: 14px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .cart-checkout:hover {
-            background: var(--primary-dark);
-        }
+        /* "Checkout All" button removed – users buy one at a time */
         /* ========== FOOTER ========== */
         footer {
             background: var(--surface);
@@ -955,8 +942,7 @@
         </ul>
         <div class="cart-footer">
             <div class="cart-total" id="cartTotal">Total: KES 0</div>
-            <button class="cart-checkout" id="cartCheckoutBtn">Checkout all</button>
-            <p style="font-size:0.8rem; margin-top:8px;">Each pass opens a secure payment popup.</p>
+            <!-- Checkout All button removed – users buy one pass at a time -->
         </div>
     </div>
 
@@ -989,6 +975,7 @@
 
     <script>
         // ========== PRODUCT DATA (UPDATED PRICING) ==========
+        // IMPORTANT: Replace placeholder checkoutIds with your actual HustleSasa product IDs.
         const products = [
             { id: '30min', name: '30 Minute Pass', desc: 'Quick email, WhatsApp, or search.', price: 5, checkoutId: 'WEY7ERYJ', duration: 0.5, category: 'hourly' },
             { id: '1h', name: '1 Hour Pass', desc: 'Light browsing, social media.', price: 8, checkoutId: '1HOUR_ID', duration: 1, category: 'hourly' },
@@ -1182,15 +1169,6 @@
         });
         closeCartBtn.addEventListener('click', () => cartSidebar.classList.remove('open'));
 
-        document.getElementById('cartCheckoutBtn').addEventListener('click', () => {
-            if (cart.length === 0) return alert('Cart is empty.');
-            cart.forEach(item => {
-                if (item.checkoutId !== 'FREE') {
-                    window.open(`https://purchase.hustlesasa.shop/checkout/${item.checkoutId}`, '_blank');
-                }
-            });
-        });
-
         document.addEventListener('click', (e) => {
             if (!cartSidebar.contains(e.target) && !cartIcon.contains(e.target) && cartSidebar.classList.contains('open')) {
                 cartSidebar.classList.remove('open');
@@ -1246,7 +1224,7 @@
 
         let receiving = false;
         const chatId = crypto.randomUUID();
-        const systemPrompt = `You are a helpful assistant for Mustee Associates WiFi. Answer questions about our WiFi passes, pricing, pricing is in kes (30min=5, 1h=8, 2h=14, 3h=20, 4h=26, 6h=38, 8h=48, 10h=58, 12h=68, 24h=28, weekend=120, weekly=135, biweekly=250, monthly=409, 2month=780, 3month=1150, student weekly=100, family monthly=900, free passes), how to connect, troubleshooting, coverage, etc. Be friendly and concise. If you don't know, suggest contacting support at musteeassociateswifi@gmail.com.`;
+        const systemPrompt = `You are a helpful assistant for Mustee Associates WiFi. Answer questions about our WiFi passes, pricing (30min=5, 1h=8, 2h=14, 3h=20, 4h=26, 6h=38, 8h=48, 10h=58, 12h=68, 24h=28, weekend=120, weekly=135, biweekly=250, monthly=409, 2month=780, 3month=1150, student weekly=100, family monthly=900, free passes), how to connect, troubleshooting, coverage, etc. Be friendly and concise. If you don't know, suggest contacting support at musteeassociateswifi@gmail.com.`;
 
         chatButton.addEventListener('click', () => {
             chatPanel.classList.toggle('open');
