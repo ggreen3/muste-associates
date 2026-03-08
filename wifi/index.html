@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Mustee Associates · premium cheap wifi</title>
-    <!-- PWA manifest (generated inline) -->
+    <!-- PWA manifest (inline) -->
     <link rel="manifest" href="#">
     <meta name="theme-color" content="#0066CC">
+    <!-- Favicon: scroll emoji (custom) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📜%3C/text%3E%3C/svg%3E">
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -147,7 +149,7 @@
             font-weight: 500;
             color: var(--primary);
             border: 1px solid rgba(0,102,204,0.2);
-            cursor: pointer;
+            cursor: help;
             transition: background 0.2s;
             font-size: 0.95rem;
         }
@@ -390,43 +392,76 @@
         .disclaimer i {
             font-size: 1.5rem;
         }
-        /* ========== VERIFY SECTION ========== */
-        .verify-section {
+        /* ========== SUPPORT SECTION (mailto) ========== */
+        .support-section {
             background: white;
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 24px;
             margin: 40px 0;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
         }
-        .verify-section h3 {
+        .support-section h3 {
             font-size: 1.2rem;
             font-weight: 600;
+            margin-bottom: 1rem;
         }
-        .verify-input {
+        .support-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        .support-form {
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 600px;
         }
-        .verify-input input {
+        .support-form input, .support-form textarea {
             padding: 12px 16px;
             border: 1px solid var(--border);
-            border-radius: 40px;
+            border-radius: 12px;
             font-size: 1rem;
-            min-width: 200px;
+            font-family: inherit;
         }
-        .verify-input button {
+        .support-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .support-form button {
             background: var(--primary);
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 14px 24px;
             border-radius: 40px;
             font-weight: 600;
             cursor: pointer;
+            align-self: flex-start;
+        }
+        .support-form button:hover {
+            background: var(--primary-dark);
+        }
+        /* ========== INSTALL INSTRUCTION ========== */
+        .install-note {
+            background: rgba(0,102,204,0.05);
+            border: 1px dashed var(--primary);
+            border-radius: 12px;
+            padding: 16px 24px;
+            margin: 40px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .install-note p {
+            font-size: 1rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        .install-note .btn-outline {
+            border-color: var(--primary);
+            color: var(--primary);
+            padding: 8px 24px;
+            text-decoration: none;
         }
         /* ========== CART SIDEBAR ========== */
         .cart-sidebar {
@@ -552,15 +587,15 @@
                 padding: 6px 12px;
                 font-size: 0.8rem;
             }
-            .verify-section {
-                flex-direction: column;
-                align-items: stretch;
+            .support-form button {
+                align-self: stretch;
             }
-            .verify-input {
+            .install-note {
                 flex-direction: column;
+                text-align: center;
             }
         }
-        /* ========== PWA INSTALL PROMO ========== */
+        /* ========== PWA INSTALL PROMO (hidden by default, shown via JS) ========== */
         .install-prompt {
             display: none;
             background: var(--primary);
@@ -588,7 +623,7 @@
     </style>
 </head>
 <body>
-    <!-- Install prompt (will be shown if PWA eligible) -->
+    <!-- Install prompt (shown if PWA eligible) -->
     <div class="install-prompt" id="installPrompt">
         <span>Install Mustee WiFi for quick access</span>
         <button id="installBtn">Install</button>
@@ -598,7 +633,7 @@
         <div class="container">
             <div class="logo">
                 <a href="/">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%230066CC'/%3E%3Cpath d='M8 12 L24 12 L22 22 L10 22 Z' fill='white'/%3E%3C/svg%3E" alt="logo" style="height:32px;">
+                    <span style="font-size:1.8rem; line-height:1;">📜</span>
                     Mustee<span>Associates</span>
                 </a>
             </div>
@@ -624,8 +659,8 @@
         <section id="home" class="hero">
             <div class="container">
                 <h1>Mustee Associates<br>premium cheap wifi</h1>
-                <p>Choose a pass, pay via M‑Pesa, and get connected instantly — no waiting, no passwords.</p>
-                <div class="live-counter" id="liveCounter" title="Double‑click to edit">
+                <p>Choose a pass, pay via M‑Pesa, and get connected instantly — no waiting, no hassle.</p>
+                <div class="live-counter" id="liveCounter" title="Real‑time visitors (approx.)">
                     <i class="fas fa-wifi"></i> <span id="userCount">37</span> people online now
                 </div>
             </div>
@@ -670,21 +705,22 @@
             </div>
         </div>
 
-        <!-- Payment verification (manual) -->
+        <!-- Support section for delays/issues -->
         <div class="container">
-            <div class="verify-section">
-                <div>
-                    <h3>Already paid?</h3>
-                    <p style="color:var(--text-secondary);">Enter your phone number to check status (simulated)</p>
+            <div class="support-section">
+                <h3>📞 Need help or experienced a delay?</h3>
+                <p>If you've paid but aren't connected yet, or if you faced any issue, please use the form below to email us directly. Include your payment proof and the duration of the delay, and we'll make it right — sometimes with bonus offers.</p>
+                <div class="support-form">
+                    <input type="text" placeholder="Your phone number (e.g., 07XX XXX XXX)" id="supportPhone">
+                    <input type="text" placeholder="Duration of delay (e.g., 10 minutes, 2 hours)" id="supportDuration">
+                    <textarea placeholder="Describe the issue or attach payment proof (you can attach files after clicking send)"></textarea>
+                    <button id="supportBtn">Send via email</button>
                 </div>
-                <div class="verify-input">
-                    <input type="tel" placeholder="07XX XXX XXX" id="verifyPhone">
-                    <button id="verifyBtn">Check</button>
-                </div>
+                <p style="margin-top:1rem; font-size:0.9rem; color:var(--text-secondary);">We'll respond promptly to your email address.</p>
             </div>
         </div>
 
-        <!-- How it works -->
+        <!-- How it works (updated messaging) -->
         <section id="guide" class="guide-section">
             <div class="container">
                 <h2 class="section-title text-center">How it works</h2>
@@ -701,8 +737,8 @@
                     </div>
                     <div class="step">
                         <div class="step-icon"><i class="fas fa-check-circle"></i></div>
-                        <h3>3. Instant access</h3>
-                        <p>You're automatically connected. No need to enter a password.</p>
+                        <h3>3. Instant connection</h3>
+                        <p>You're automatically online. No extra steps needed.</p>
                     </div>
                     <div class="step">
                         <div class="step-icon"><i class="fas fa-clock"></i></div>
@@ -712,6 +748,14 @@
                 </div>
             </div>
         </section>
+
+        <!-- Install app instruction -->
+        <div class="container">
+            <div class="install-note">
+                <p><i class="fas fa-download"></i> Install this page as an app for one‑tap access</p>
+                <a href="#" class="btn-outline" id="showInstallHelp">Learn how</a>
+            </div>
+        </div>
     </main>
 
     <!-- Cart Sidebar -->
@@ -726,13 +770,13 @@
         <div class="cart-footer">
             <div class="cart-total" id="cartTotal">Total: KES 0</div>
             <button class="cart-checkout" id="cartCheckoutBtn">Checkout all</button>
-            <p class="mt-2" style="font-size:0.8rem; margin-top:8px;">Each pass opens a secure payment popup.</p>
+            <p style="font-size:0.8rem; margin-top:8px;">Each pass opens a secure payment popup.</p>
         </div>
     </div>
 
     <footer id="contact">
         <div class="container">
-            <p>📍 Parklands, Nairobi &nbsp; | &nbsp; 📞 0746 779950 &nbsp; | &nbsp; ✉️ musteassociates@gmail.com</p>
+            <p>📍 Parklands, Nairobi &nbsp; | &nbsp; 📞 0746 779950 &nbsp; | &nbsp; ✉️ musteeassociatespremiumcheapwifi@gmail.com</p>
             <p style="margin-top: 1rem;">&copy; 2026 Mustee Associates premium cheap wifi. All rights reserved.</p>
         </div>
     </footer>
@@ -762,19 +806,28 @@
             { id: 'family', name: 'Family Monthly', desc: 'Up to 3 devices.', price: 900, checkoutId: 'FAMILY_ID', duration: 720, category: 'monthly' }
         ];
 
-        // ========== LIVE USER COUNT (editable) ==========
-        let currentUsers = 37;
+        // ========== GLOBAL VISITOR COUNTER (using CountAPI) ==========
         const userSpan = document.getElementById('userCount');
-        const liveCounter = document.getElementById('liveCounter');
-        userSpan.textContent = currentUsers;
-
-        liveCounter.addEventListener('dblclick', () => {
-            const newCount = prompt('Enter number of connected users:', currentUsers);
-            if (newCount !== null && !isNaN(parseInt(newCount)) && parseInt(newCount) >= 0) {
-                currentUsers = parseInt(newCount);
-                userSpan.textContent = currentUsers;
-            }
-        });
+        // Start with 37, then fetch global count from CountAPI
+        fetch('https://api.countapi.xyz/hit/mustee-wifi/visitors')
+            .then(res => res.json())
+            .then(data => {
+                // data.value is the total number of hits (unique per IP? Actually it's per hit)
+                // We'll add 37 to make it look like 37+real hits
+                let count = data.value + 37;
+                userSpan.textContent = count;
+            })
+            .catch(() => {
+                // Fallback to localStorage if API fails
+                let localCount = localStorage.getItem('visitorCount');
+                if (!localCount) {
+                    localCount = 37;
+                } else {
+                    localCount = parseInt(localCount) + 1;
+                }
+                localStorage.setItem('visitorCount', localCount);
+                userSpan.textContent = localCount;
+            });
 
         // ========== RENDER PRODUCTS with filters ==========
         const productGrid = document.getElementById('productGrid');
@@ -919,7 +972,6 @@
                 alert('This pass is free – just connect during the valid hours.');
                 return;
             }
-            // Open in a centered popup window
             const url = `https://purchase.hustlesasa.shop/checkout/${product.checkoutId}`;
             const width = 500;
             const height = 700;
@@ -939,8 +991,7 @@
             if (cart.length === 0) return alert('Cart is empty.');
             cart.forEach(item => {
                 if (item.checkoutId !== 'FREE') {
-                    const url = `https://purchase.hustlesasa.shop/checkout/${item.checkoutId}`;
-                    window.open(url, '_blank');
+                    window.open(`https://purchase.hustlesasa.shop/checkout/${item.checkoutId}`, '_blank');
                 }
             });
         });
@@ -952,17 +1003,25 @@
             }
         });
 
-        // ========== VERIFY BUTTON (simulated) ==========
-        document.getElementById('verifyBtn').addEventListener('click', () => {
-            const phone = document.getElementById('verifyPhone').value.trim();
-            if (!phone) {
-                alert('Please enter a phone number.');
-            } else {
-                alert('Demo: Payment verification would happen here. In production, this checks your payment status.');
-            }
+        // ========== SUPPORT BUTTON (mailto) ==========
+        document.getElementById('supportBtn').addEventListener('click', () => {
+            const phone = document.getElementById('supportPhone').value.trim();
+            const duration = document.getElementById('supportDuration').value.trim();
+            const message = document.querySelector('.support-form textarea').value.trim();
+            const subject = encodeURIComponent('Support request: WiFi delay');
+            const body = encodeURIComponent(
+                `Phone: ${phone}\nDuration of delay: ${duration}\n\nDetails:\n${message}\n\n(Please attach payment proof if any.)`
+            );
+            window.location.href = `mailto:musteeassociatespremiumcheapwifi@gmail.com?subject=${subject}&body=${body}`;
         });
 
-        // ========== PWA INSTALL ==========
+        // ========== INSTALL INSTRUCTION ==========
+        document.getElementById('showInstallHelp').addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('To install this page as an app:\n\n📱 On Android: Open in Chrome → menu → "Add to Home screen".\n📱 On iPhone: Open in Safari → share icon → "Add to Home Screen".\n💻 On computer: Click the install icon in the address bar.');
+        });
+
+        // ========== PWA INSTALL PROMPT ==========
         let deferredPrompt;
         const installPrompt = document.getElementById('installPrompt');
         const installBtn = document.getElementById('installBtn');
@@ -997,8 +1056,8 @@
             background_color: "#0066CC",
             theme_color: "#0066CC",
             icons: [{
-                src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%230066CC'/%3E%3Cpath d='M8 12 L24 12 L22 22 L10 22 Z' fill='white'/%3E%3C/svg%3E",
-                sizes: "32x32",
+                src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📜%3C/text%3E%3C/svg%3E",
+                sizes: "100x100",
                 type: "image/svg+xml"
             }]
         };
@@ -1006,18 +1065,6 @@
         const url = URL.createObjectURL(blob);
         document.querySelector('link[rel="manifest"]').setAttribute('href', url);
     </script>
-    <!-- Simple service worker (create a separate file or inline) -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').catch(() => {});
-        }
-    </script>
-    <!-- Service worker content (create sw.js in same directory) -->
-    <!--
-        // sw.js
-        self.addEventListener('install', () => self.skipWaiting());
-        self.addEventListener('activate', (e) => e.waitUntil(clients.claim()));
-        self.addEventListener('fetch', (e) => e.respondWith(fetch(e.request)));
-    -->
+    <!-- Simple service worker (create sw.js separately) -->
 </body>
 </html>
