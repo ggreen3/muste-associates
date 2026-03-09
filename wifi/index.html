@@ -878,7 +878,7 @@
             </div>
         </div>
 
-        <!-- Support section for delays/issues (updated email) -->
+        <!-- Support section for delays/issues -->
         <div class="container">
             <div class="support-section">
                 <h3>📞 Need help or experienced a delay?</h3>
@@ -974,29 +974,28 @@
     </div>
 
     <script>
-        // ========== PRODUCT DATA WITH CORRECT HUSTLESASA CHECKOUT IDs ==========
-        // All prices in KES. Free passes are priced at 0.50 (HustleSasa minimum) but described as free.
+        // ========== PRODUCT DATA WITH CORRECT CHECKOUT IDs ==========
         const products = [
-            { id: '30min', name: '30 Minute Pass', desc: 'Need internet for a super quick task? This 30‑minute pass is perfect for checking email, sending a WhatsApp, or a quick search. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 5, checkoutId: '69ad86d0cf30ad70c6be29c5', duration: 30, category: 'hourly' },
-            { id: '1h', name: '1 Hour Pass', desc: 'Light browsing, social media, or catching up on news – this 1‑hour pass gives you plenty of time. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 8, checkoutId: '69ae2384ca5a8b9aa7804ec7', duration: 60, category: 'hourly' },
-            { id: '2h', name: '2 Hour Pass', desc: 'Ideal for a study session, research, or watching a short movie. Get 2 hours of uninterrupted internet. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 14, checkoutId: '69ae2441ca5a8b9aa7804ee4', duration: 120, category: 'hourly' },
-            { id: '3h', name: '3 Hour Pass', desc: 'Perfect for a movie marathon or a solid work block. Enjoy 3 hours of fast WiFi. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 20, checkoutId: '69ae24d2ca5a8b9aa7804ee9', duration: 180, category: 'hourly' },
-            { id: '4h', name: '4 Hour Pass', desc: 'Half a work day or a long study session – this 4‑hour pass keeps you connected. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 26, checkoutId: '69ae2568ca5a8b9aa7804eee', duration: 240, category: 'hourly' },
-            { id: '6h', name: '6 Hour Pass', desc: 'Cover your full work shift or binge a few episodes. With 6 hours, you\'ve got plenty of time. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 38, checkoutId: '69ae25e9ca5a8b9aa7804ef3', duration: 360, category: 'hourly' },
-            { id: '8h', name: '8 Hour Pass', desc: 'A full work day plus some evening browsing. Stay online for 8 hours. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 48, checkoutId: '69ae2662ca5a8b9aa7804ef8', duration: 480, category: 'hourly' },
-            { id: '10h', name: '10 Hour Pass', desc: 'Heavy usage day? This 10‑hour pass has you covered for work, streaming, and more. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 58, checkoutId: '69ae26e1ca5a8b9aa7804efd', duration: 600, category: 'hourly' },
-            { id: '12h', name: '12 Hour Pass', desc: 'All‑day connectivity from morning till night. Perfect for remote work or long study sessions. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 68, checkoutId: '69ae276bca5a8b9aa7804f02', duration: 720, category: 'hourly' },
-            { id: '24h', name: '24 Hour Pass', desc: 'Complete day coverage – 24 hours of uninterrupted internet. Ideal for when you need to stay online all day. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 28, checkoutId: '69ae2833ca5a8b9aa7804f07', duration: 1440, category: 'daily' },
-            { id: 'weekend', name: 'Weekend Special', desc: 'From Friday 6pm to Monday 6am – enjoy the whole weekend online! Perfect for streaming, gaming, or catching up on shows. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 120, checkoutId: '69ae28f4ca5a8b9aa7804f0c', duration: 60*60, category: 'daily' }, // 60h approx
-            { id: 'weekly', name: 'Weekly Pass', desc: 'Seven full days of high‑speed WiFi. Save money compared to buying daily passes. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 135, checkoutId: '69ae298bca5a8b9aa7804f11', duration: 10080, category: 'weekly' },
-            { id: 'biweekly', name: 'Bi‑Weekly Pass', desc: 'Fourteen days of internet – perfect for regular users or short stays. Great value. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 250, checkoutId: '69ae2a13ca5a8b9aa7804f16', duration: 20160, category: 'weekly' },
-            { id: 'monthly', name: 'Monthly Pass', desc: '30 days of premium internet. Our best value for consistent, long‑term access. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 409, checkoutId: '69ae2a8bca5a8b9aa7804f1b', duration: 43200, category: 'monthly' },
-            { id: '2month', name: '2 Month Pass', desc: 'Two months of uninterrupted WiFi. Ideal for students or anyone needing reliable long‑term access. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 780, checkoutId: '69ae7668b89d93063b3dbbc5', duration: 86400, category: 'monthly' },
-            { id: '3month', name: '3 Month Pass', desc: 'Three months of high‑speed internet. The ultimate convenience for heavy users. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 1150, checkoutId: '69ae76e1b89d93063b3dbbe2', duration: 129600, category: 'monthly' },
-            { id: 'midnight', name: 'Midnight Hour (Free)', desc: 'Free internet from 12am to 1am! Connect to our WiFi, open a browser, and use the code below to log in. No payment required – just enjoy your free hour. (Priced at 0.50 due to platform policy – it\'s effectively free.)', price: 0.50, checkoutId: '69ae77f2b89d93063b3dbbe7', duration: 60, category: 'free' },
-            { id: 'weekendfree', name: 'Weekend Free Hour', desc: 'Free one‑hour pass on Saturdays and Sundays! Connect to our WiFi, open a browser, and use the code below to log in. No payment required. (Priced at 0.50 due to platform policy – it\'s effectively free.)', price: 0.50, checkoutId: '69ae785eb89d93063b3dbbec', duration: 60, category: 'free' },
-            { id: 'student', name: 'Student Weekly', desc: 'Special rate for students. Valid student ID may be required for verification. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 100, checkoutId: '69ae78fdb89d93063b3dbbf1', duration: 10080, category: 'weekly' },
-            { id: 'family', name: 'Family Monthly', desc: 'Connect up to 3 devices simultaneously with this family plan. Perfect for households. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 900, checkoutId: '69ae7984b89d93063b3dbbf6', duration: 43200, category: 'monthly' }
+            { id: '30min', name: '30 Minute Pass', desc: 'Need internet for a super quick task? This 30‑minute pass is perfect for checking email, sending a WhatsApp, or a quick search. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 5, checkoutId: '1G6MB4V1', duration: 30, category: 'hourly' },
+            { id: '1h', name: '1 Hour Pass', desc: 'Light browsing, social media, or catching up on news – this 1‑hour pass gives you plenty of time. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 8, checkoutId: 'PDEMRH9S', duration: 60, category: 'hourly' },
+            { id: '2h', name: '2 Hour Pass', desc: 'Ideal for a study session, research, or watching a short movie. Get 2 hours of uninterrupted internet. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 14, checkoutId: 'SA7VNFXV', duration: 120, category: 'hourly' },
+            { id: '3h', name: '3 Hour Pass', desc: 'Perfect for a movie marathon or a solid work block. Enjoy 3 hours of fast WiFi. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 20, checkoutId: 'MKLP8F4I', duration: 180, category: 'hourly' },
+            { id: '4h', name: '4 Hour Pass', desc: 'Half a work day or a long study session – this 4‑hour pass keeps you connected. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 26, checkoutId: 'BF0YMEND', duration: 240, category: 'hourly' },
+            { id: '6h', name: '6 Hour Pass', desc: 'Cover your full work shift or binge a few episodes. With 6 hours, you\'ve got plenty of time. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 38, checkoutId: 'GJGJXQN3', duration: 360, category: 'hourly' },
+            { id: '8h', name: '8 Hour Pass', desc: 'A full work day plus some evening browsing. Stay online for 8 hours. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 48, checkoutId: 'VU2B9MZY', duration: 480, category: 'hourly' },
+            { id: '10h', name: '10 Hour Pass', desc: 'Heavy usage day? This 10‑hour pass has you covered for work, streaming, and more. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 58, checkoutId: 'MCGHFNL6', duration: 600, category: 'hourly' },
+            { id: '12h', name: '12 Hour Pass', desc: 'All‑day connectivity from morning till night. Perfect for remote work or long study sessions. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 68, checkoutId: 'FFDHILSC', duration: 720, category: 'hourly' },
+            { id: '24h', name: '24 Hour Pass', desc: 'Complete day coverage – 24 hours of uninterrupted internet. Ideal for when you need to stay online all day. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 28, checkoutId: 'VGMML1HV', duration: 1440, category: 'daily' },
+            { id: 'weekend', name: 'Weekend Special', desc: 'From Friday 6pm to Monday 6am – enjoy the whole weekend online! Perfect for streaming, gaming, or catching up on shows. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 120, checkoutId: 'VL7BKEWC', duration: 60*60, category: 'daily' }, // approx 60h
+            { id: 'weekly', name: 'Weekly Pass', desc: 'Seven full days of high‑speed WiFi. Save money compared to buying daily passes. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 135, checkoutId: 'OCHT7JWP', duration: 10080, category: 'weekly' },
+            { id: 'biweekly', name: 'Bi‑Weekly Pass', desc: 'Fourteen days of internet – perfect for regular users or short stays. Great value. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 250, checkoutId: 'BKX9EFP2', duration: 20160, category: 'weekly' },
+            { id: 'monthly', name: 'Monthly Pass', desc: '30 days of premium internet. Our best value for consistent, long‑term access. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 409, checkoutId: 'EZFEHXUJ', duration: 43200, category: 'monthly' },
+            { id: '2month', name: '2 Month Pass', desc: 'Two months of uninterrupted WiFi. Ideal for students or anyone needing reliable long‑term access. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 780, checkoutId: 'KWQREY2H', duration: 86400, category: 'monthly' },
+            { id: '3month', name: '3 Month Pass', desc: 'Three months of high‑speed internet. The ultimate convenience for heavy users. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 1150, checkoutId: '2YQZAEXQ', duration: 129600, category: 'monthly' },
+            { id: 'midnight', name: 'Midnight Hour (Free)', desc: 'Free internet from 12am to 1am! Connect to our WiFi, open a browser, and use the code below to log in. No payment required – just enjoy your free hour. (Priced at 0.50 due to platform policy – it\'s effectively free.)', price: 0.50, checkoutId: 'HJHSUK4R', duration: 60, category: 'free' },
+            { id: 'weekendfree', name: 'Weekend Free Hour', desc: 'Free one‑hour pass on Saturdays and Sundays! Connect to our WiFi, open a browser, and use the code below to log in. No payment required. (Priced at 0.50 due to platform policy – it\'s effectively free.)', price: 0.50, checkoutId: 'YJAYBMGA', duration: 60, category: 'free' },
+            { id: 'student', name: 'Student Weekly', desc: 'Special rate for students. Valid student ID may be required for verification. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 100, checkoutId: 'LXVGBJWE', duration: 10080, category: 'weekly' },
+            { id: 'family', name: 'Family Monthly', desc: 'Connect up to 3 devices simultaneously with this family plan. Perfect for households. After payment, you\'ll receive your unique voucher code via SMS/Email within 2 minutes.', price: 900, checkoutId: 'TH38KW0B', duration: 43200, category: 'monthly' }
         ];
 
         // ========== GLOBAL VISITOR COUNTER ==========
@@ -1151,7 +1150,7 @@
             const id = e.target.closest('button').dataset.id;
             const product = products.find(p => p.id === id);
             if (!product) return;
-            // For free passes, we still open the checkout (price is 0.50)
+            // Construct the correct checkout URL using the new IDs
             const url = `https://purchase.hustlesasa.shop/checkout/${product.checkoutId}`;
             const width = 500;
             const height = 700;
@@ -1172,7 +1171,7 @@
             }
         });
 
-        // ========== SUPPORT BUTTON (mailto) with updated email ==========
+        // ========== SUPPORT BUTTON (mailto) ==========
         document.getElementById('supportBtn').addEventListener('click', () => {
             const phone = document.getElementById('supportPhone').value.trim();
             const duration = document.getElementById('supportDuration').value.trim();
@@ -1211,7 +1210,7 @@
             deferredPrompt = null;
         });
 
-        // ========== CHATBOT with KES prices ==========
+        // ========== CHATBOT WITH EXPANDED KNOWLEDGE ==========
         const chatButton = document.getElementById('chatButton');
         const chatPanel = document.getElementById('chatPanel');
         const closeChatBtn = document.getElementById('closeChatBtn');
@@ -1221,13 +1220,47 @@
 
         let receiving = false;
         const chatId = crypto.randomUUID();
-        // System prompt now uses KES
-        const systemPrompt = `You are a helpful assistant for Mustee Associates WiFi. Answer questions about our WiFi passes, pricing (30min=5 KES, 1h=8 KES, 2h=14 KES, 3h=20 KES, 4h=26 KES, 6h=38 KES, 8h=48 KES, 10h=58 KES, 12h=68 KES, 24h=28 KES, weekend=120 KES, weekly=135 KES, biweekly=250 KES, monthly=409 KES, 2month=780 KES, 3month=1150 KES, student weekly=100 KES, family monthly=900 KES, free passes priced at 0.50 KES due to platform policy). All prices are in Kenyan Shillings. Be friendly and concise. If you don't know, suggest contacting support at musteeassociateswifi@gmail.com.`;
+        // Comprehensive system prompt covering all aspects of the service
+        const systemPrompt = `You are the official AI assistant for Mustee Associates WiFi, a premium cheap wifi service in Parklands, Nairobi. Your role is to provide friendly, accurate, and helpful answers to customers.
+
+Key information about our service:
+- WiFi network name: MusteeAssociatesPremiumCheapWiFi
+- Coverage area: Parklands, Nairobi (newly established, so customers should test signal first)
+- How to connect: Scan the QR code on our site or select the network, open any browser to be redirected to our login page.
+- Payment: Via M-Pesa STK Push (prompt appears on phone after selecting a pass on our website). Customers can pay using mobile data even if not connected to our WiFi.
+- After payment: They receive a unique voucher code via SMS/Email within 2 minutes. They then enter this code on the hotspot login page to get internet.
+- Grace period: 10 minutes after expiry to renew without losing connection.
+- Power outage: If our system goes down, access becomes completely free until it's back.
+
+Our passes and prices (all in Kenyan Shillings KES):
+- 30 Minute Pass: 5 KES
+- 1 Hour Pass: 8 KES
+- 2 Hour Pass: 14 KES
+- 3 Hour Pass: 20 KES
+- 4 Hour Pass: 26 KES
+- 6 Hour Pass: 38 KES
+- 8 Hour Pass: 48 KES
+- 10 Hour Pass: 58 KES
+- 12 Hour Pass: 68 KES
+- 24 Hour Pass: 28 KES
+- Weekend Special (Fri 6pm – Mon 6am): 120 KES
+- Weekly Pass: 135 KES
+- Bi-Weekly Pass: 250 KES
+- Monthly Pass: 409 KES
+- 2 Month Pass: 780 KES
+- 3 Month Pass: 1150 KES
+- Student Weekly (valid student ID may be required): 100 KES
+- Family Monthly (up to 3 devices): 900 KES
+- Free passes: Midnight Hour (12am-1am) and Weekend Free Hour (1 hour on Sat/Sun) – priced at 0.50 KES due to platform policy, but effectively free.
+
+If a customer experiences a delay or issue, direct them to the support section on the website to email musteeassociateswifi@gmail.com with their phone number, duration of delay, and payment proof.
+
+Be concise, warm, and helpful. If you don't know the answer, suggest contacting support.`;
 
         chatButton.addEventListener('click', () => {
             chatPanel.classList.toggle('open');
             if (chatPanel.classList.contains('open') && chatMessages.children.length === 0) {
-                addMessage('bot', 'Hello! I\'m your WiFi assistant. How can I help you today?');
+                addMessage('bot', 'Hello! I\'m your Mustee Associates WiFi assistant. How can I help you today?');
             }
         });
 
