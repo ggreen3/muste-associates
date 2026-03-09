@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Mustee Associates · premium cheap wifi</title>
+    <!-- PWA manifest (inline) -->
+    <link rel="manifest" href="#">
+    <meta name="theme-color" content="#0066CC" id="theme-color">
+    <!-- Favicon: scroll emoji (custom) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📜%3C/text%3E%3C/svg%3E">
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- External CSS Link -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Install prompt (shown if PWA eligible) -->
+    <div class="install-prompt" id="installPrompt">
+        <span>Install Mustee WiFi for quick access</span>
+        <button id="installBtn">Install</button>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="/">
+                    <span style="font-size:1.8rem; line-height:1;">📜</span>
+                    Mustee<span>Associates</span>
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Passes</a></li>
+                    <li><a href="#guide">How it works</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="dark-mode-toggle" id="darkModeToggle">
+                    <i class="fas fa-sun" id="darkModeIcon"></i>
+                </div>
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero / Home -->
+        <section id="home" class="hero">
+            <div class="container">
+                <h1>Mustee Associates<br>premium cheap wifi</h1>
+                <p>Choose a pass, pay via M‑Pesa, and get connected instantly — no waiting, no hassle.</p>
+                <div class="live-counter" id="liveCounter" title="Real‑time visitors (approx.)">
+                    <i class="fas fa-wifi"></i> <span id="userCount">37</span> people online now
+                </div>
+            </div>
+        </section>
+
+        <!-- QR Code & Coverage Note (centered) -->
+        <div class="container" style="display: flex; justify-content: center;">
+            <div class="qr-coverage">
+                <img src="/wifi/musteeassociatespremiumcheapwifi.png" alt="Scan to connect to MusteeAssociatesPremiumCheapWiFi">
+                <div>
+                    <h3>📶 Check coverage first</h3>
+                    <p>Our network is newly established. For the best experience, scan the QR code above to connect and test signal strength before purchasing. If the signal is weak, try moving closer to the hotspot location.</p>
+                    <p><strong>You don't need to be connected to WiFi to pay</strong> – you can pay using your mobile data. After payment, you'll receive a unique code via SMS. Then connect to the hotspot and enter the code on the login page.</p>
+                    <p><i class="fas fa-save"></i> <strong>Pro tip:</strong> After you receive your voucher code, scan this QR code to go directly to the login page. You can save or screenshot the QR code for quick future access.</p>
+                    <button class="btn-outline" onclick="alert('Save this QR code as an image (screenshot) to use anytime you need to log in.')"><i class="fas fa-download"></i> Save QR Code</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Shortcut for connected users -->
+        <div class="container">
+            <div class="login-shortcut">
+                <p><i class="fas fa-wifi"></i> <strong>Already connected to Mustee WiFi?</strong> Click the button to go to the login page instantly.</p>
+                <a href="http://192.168.5.1" target="_blank" class="btn btn-primary">🔑 Go to Login Page</a>
+            </div>
+        </div>
+
+        <!-- Grace Period Note -->
+        <div class="container">
+            <div class="grace-note">
+                <p><strong>⏳ 10‑minute grace period</strong> – After your pass expires, you'll have an extra 10 minutes to renew without losing connection. Just buy a new pass and enter the new code before the grace period ends.</p>
+            </div>
+        </div>
+
+        <!-- Search & Filters -->
+        <section class="filter-section">
+            <div class="container">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search for 30 min, 6 hour, monthly...">
+                    <button id="searchBtn"><i class="fas fa-search"></i> Search</button>
+                </div>
+                <div class="filter-buttons" id="filterButtons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="under50">Under KES 50</button>
+                    <button class="filter-btn" data-filter="50to200">KES 50–200</button>
+                    <button class="filter-btn" data-filter="above200">Above KES 200</button>
+                    <button class="filter-btn" data-filter="hourly">Hourly</button>
+                    <button class="filter-btn" data-filter="daily">Daily</button>
+                    <button class="filter-btn" data-filter="weekly">Weekly</button>
+                    <button class="filter-btn" data-filter="monthly">Monthly</button>
+                    <button class="filter-btn" data-filter="free">Free</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products -->
+        <section id="products" class="products-section">
+            <div class="container">
+                <h2 class="section-title">Choose your pass</h2>
+                <div class="product-grid" id="productGrid">
+                    <!-- Products injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Outage disclaimer -->
+        <div class="container">
+            <div class="disclaimer">
+                <i class="fas fa-bolt"></i>
+                <span><strong>Power outage?</strong> If our system goes down, access becomes completely free until it’s back. We’ve got you covered.</span>
+            </div>
+        </div>
+
+        <!-- Support section for delays/issues -->
+        <div class="container">
+            <div class="support-section">
+                <h3>📞 Need help or experienced a delay?</h3>
+                <p>If you've paid but aren't connected yet, or if you faced any issue, please use the form below to email us directly. Include your payment proof and the duration of the delay, and we'll make it right — sometimes with bonus offers.</p>
+                <div class="support-form">
+                    <input type="text" placeholder="Your phone number (e.g., 07XX XXX XXX)" id="supportPhone">
+                    <input type="text" placeholder="Duration of delay (e.g., 10 minutes, 2 hours)" id="supportDuration">
+                    <textarea placeholder="Describe the issue or attach payment proof (you can attach files after clicking send)"></textarea>
+                    <button id="supportBtn">Send via email</button>
+                </div>
+                <p style="margin-top:1rem; font-size:0.9rem; color:var(--text-secondary);">We'll respond promptly to your email address.</p>
+            </div>
+        </div>
+
+        <!-- How it works -->
+        <section id="guide" class="guide-section">
+            <div class="container">
+                <h2 class="section-title text-center">How it works</h2>
+                <div class="guide-steps">
+                    <div class="step">
+                        <div class="step-icon"><i class="fas fa-cart-shopping"></i></div>
+                        <h3>1. Pick a pass</h3>
+                        <p>Select any plan and add to cart or buy directly.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon"><i class="fas fa-mobile-alt"></i></div>
+                        <h3>2. Pay via M‑Pesa</h3>
+                        <p>A payment prompt appears on your phone – just enter your PIN. (You can use mobile data.)</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+                        <h3>3. Receive code</h3>
+                        <p>You'll get a unique voucher code via SMS within 1 minute.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon"><i class="fas fa-key"></i></div>
+                        <h3>4. Enter code</h3>
+                        <p>Connect to the hotspot, open a browser, and enter the code on the login page. You're online!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Install app instruction -->
+        <div class="container">
+            <div class="install-note">
+                <p><i class="fas fa-download"></i> Install this page as an app for one‑tap access</p>
+                <a href="#" class="btn-outline" id="showInstallHelp">Learn how</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your cart</h3>
+            <button class="close-cart" id="closeCartBtn">&times;</button>
+        </div>
+        <ul class="cart-items" id="cartItemsList">
+            <!-- dynamic -->
+        </ul>
+        <div class="cart-footer">
+            <div class="cart-total" id="cartTotal">Total: KES 0</div>
+            <!-- Checkout All button removed – users buy one pass at a time -->
+        </div>
+    </div>
+
+    <footer id="contact">
+        <div class="container">
+            <p>📍 Parklands, Nairobi &nbsp; | &nbsp; 📞 0746 779950 &nbsp; | &nbsp; ✉️ musteeassociateswifi@gmail.com</p>
+            <p style="margin-top: 1rem;">&copy; 2026 Mustee Associates premium cheap wifi. All rights reserved.</p>
+            <p class="thank-you">🙏 Thank you for supporting Mustee Associates! Your patience and feedback help us build a better WiFi experience for our community.</p>
+        </div>
+    </footer>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <div class="chat-button" id="chatButton">
+            <i class="fas fa-comment"></i>
+        </div>
+        <div class="chat-panel" id="chatPanel">
+            <div class="chat-header-panel">
+                <h3><i class="fas fa-robot"></i> WiFi Assistant</h3>
+                <button id="closeChatBtn">&times;</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <!-- messages appear here -->
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Ask about passes, connection, etc.">
+                <button id="chatSendBtn" disabled><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- External JS Link -->
+    <script src="app.js"></script>
+</body>
+</html>
